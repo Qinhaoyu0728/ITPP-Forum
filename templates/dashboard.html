@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+    <title>{% block page_name %}{% endblock %}Welcome to ITPP Forum</title>
+
+    <script>
+        function search(){
+           if (document.getElementById("skw").value.length >= 1)
+           {
+               var search_engine = "https://cn.bing.com/search?q="
+               var urlsk = search_engine + document.getElementById("skw").value;
+               window.open(urlsk)
+           }
+        }
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href='/'>ITPP Forum</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li><a href="#">Home</a></li>
+
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Github | Repository<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="https://github.com/Qinhaoyu0728/ITPP-Forum">Project Home</a></li>
+                    <li><a href="https://github.com/Qinhaoyu0728/ITPP-Forum/releases/tag/v0.1.0-rc.3" target="_blank">Latest release</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="https://github.com/Qinhaoyu0728/ITPP-Forum/issues">Feedback issue</a></li>
+                  </ul>
+                </li>
+
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Links<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="mailto:qhy080728@outlook.com">Contact me</a></li>
+                    <li><a href="http://flask.pocoo.org" target="_blank">Flask Official</a></li>
+                    <li><a href="https://www.python.org/">Python Official</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="https://www.baidu.com" target="_blank">Baidu Search</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="https://www.google.com.hk" target="_blank">Google Search</a></li>
+                  </ul>
+                </li>
+              </ul>
+
+              <form class="navbar-form navbar-left">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Key Words" id="skw">
+                </div>
+                <button type="submit" class="btn btn-default" onclick="search()">Web Search</button>
+              </form>
+
+              <ul class="nav navbar-nav navbar-right">
+                {% if current_user.is_anonymous %}
+						<li><a href="/login">Login</a></li>
+				{% else %}
+
+						<li><a href="{{ url_for('logout') }}">Logout</a></li>
+				{% endif %}
+                <li class="disabled"><a href="#">Register(Coming soon!)</a></li>
+
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container">
+		<p><h1>Welcome to ITPP Forum, {{ current_user.username or 'Partner' }} !</h1></p>
+        <hr style="border: #000000 solid 0.5px">
+        <h2>I<small>nformation</small>T<small>echnology</small>P<small>rogramming</small>P<small>ractice</small></h2>
+        <h4><span class="label label-primary">Server on GitHub：v0.1.0-rc.3</span></h4>
+
+
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				{% for message in messages %}
+					<div class="alert alert-info" role="alert">{{ message }}</div>
+				{% endfor %}
+			{% endif %}
+		{% endwith %}
+
+		{# application content needs to be provided in the app_content block #}
+		{% block app_content %}{% endblock %}
+	</div>
+{% block body_part %}
+{% endblock %}
+</body>
+</html>

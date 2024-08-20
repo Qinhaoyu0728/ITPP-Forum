@@ -1,0 +1,67 @@
+<!--该界面由bootstrap3.4的css样式的表单为主体修改而来-->
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+
+    <!--flask项目中引入的css文件的(flask项目的css文件的路径为在static目录下)-->
+    <link rel="stylesheet" href="/static/plugins/bootstrap5/css/bootstrap.min.css">
+    <style>
+    .account{
+        /*宽度和高度*/
+        width: 500px;
+        /*边框*/
+        border: 1px solid rgb(102, 97, 97);
+        /*左右居中*/
+        margin-left: auto;
+        margin-right: auto;
+        /*上边距*/
+        margin-top: 100px;
+        /*内边距*/
+        padding: 20px 40px;
+        /*阴影 水平方向 垂直方向 模糊距离*/
+        box-shadow: 5px 5px 5px rgba(88, 88, 88, 0.5);
+    }
+    .account h3{
+        /*文本居中*/
+        text-align: center;
+        /*加粗*/
+        font-weight: bold;
+    }
+    
+</style>
+</head>
+<body>
+    <!--form表单-->
+    <form action="/login" method="post">
+        <div class="account">
+            <h3>User Login</h3>
+            <div class="form-group">
+                <label>Username</label>
+                <input class="form-control" id="Username"
+                    placeholder="User Name" name="username">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control"
+                    id="Password" placeholder="Password"
+                    name="password">
+            </div>
+
+            {% if message %}
+                <font color="red">{{message}} </font>
+            {% endif %}
+            <hr>
+            <!--提交表单的按钮-->
+            <button type="submit" class="btn btn-primary">Login</button>
+
+
+        </div>
+    </form>
+
+</body>
+</html>
